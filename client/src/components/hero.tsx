@@ -45,7 +45,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="hero-title text-5xl md:text-7xl lg:text-8xl font-serif font-medium leading-[0.9] tracking-tight mb-8"
+          className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-medium leading-[0.9] tracking-tight mb-6 md:mb-8"
         >
           The Art of <br/>
           <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/60">
@@ -57,7 +57,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="text-lg md:text-xl text-white/80 max-w-lg mb-12 font-light leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-white/80 max-w-sm sm:max-w-md lg:max-w-lg mb-8 md:mb-12 font-light leading-relaxed px-4 sm:px-0"
         >
           Sourced from the misty hills of Shizuoka. 
           A daily ritual for focus, calm, and clarity.
@@ -71,7 +71,7 @@ export function Hero() {
         >
           <div className="absolute inset-0 bg-white/20 blur-2xl rounded-full opacity-0 group-hover:opacity-50 transition-opacity duration-700" />
           <Link href="/shop">
-            <Button variant="luxury" size="lg" className="luxury-cta relative px-14 py-6 text-xl font-serif tracking-wide group overflow-hidden">
+            <Button variant="luxury" size="lg" className="luxury-cta relative px-8 sm:px-12 md:px-14 py-4 md:py-6 text-lg md:text-xl font-serif tracking-wide group overflow-hidden">
               <span className="relative z-10">Shop Collection</span>
               <span className="absolute inset-0 z-0 rounded-full opacity-0 group-hover:opacity-80 transition-opacity duration-400 bg-gradient-to-r from-white/10 via-white/6 to-white/2" />
               <span className="absolute -inset-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 border border-white/10" />

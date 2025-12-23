@@ -21,6 +21,7 @@ export function Navbar() {
   const navLinks = [
     { name: "Shop", href: "/shop" },
     { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -30,10 +31,10 @@ export function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4 pointer-events-none"
     >
       <nav 
-        className={`pointer-events-auto transition-all duration-500 ease-out flex items-center justify-between px-6 py-4 rounded-full ${
+        className={`pointer-events-auto transition-all duration-500 ease-out flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 rounded-full ${
           scrolled 
-            ? "glass-panel shadow-[0_12px_40px_rgba(6,10,10,0.12)] w-full max-w-4xl" 
-            : "bg-black/20 backdrop-blur-md border border-white/10 w-full max-w-5xl"
+            ? "glass-panel shadow-[0_12px_40px_rgba(6,10,10,0.12)] w-full max-w-3xl sm:max-w-4xl" 
+            : "bg-black/20 backdrop-blur-md border border-white/10 w-full max-w-4xl sm:max-w-5xl"
         }`}
       >
         {/* Mobile Menu Trigger */}
@@ -65,22 +66,22 @@ export function Navbar() {
         </div>
 
         {/* Logo (text) */}
-        <Link href="/">
-          <a className={`text-2xl font-serif font-bold tracking-tight transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}>
-            CHAEEN
-          </a>
+        <Link href="/" className={`text-xl sm:text-2xl font-serif font-bold tracking-tight transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}>
+          CHAEEN
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => (
-            <Link key={link.name} href={link.href}>
-              <a className={`text-sm font-medium tracking-wide transition-colors uppercase relative group ${
+            <Link 
+              key={link.name} 
+              href={link.href}
+              className={`text-sm font-medium tracking-wide transition-colors uppercase relative group ${
                 scrolled ? 'text-foreground/80 hover:text-primary' : 'text-white/90 hover:text-white'
-              }`}>
-                {link.name}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${scrolled ? 'bg-primary' : 'bg-white'}`} />
-              </a>
+              }`}
+            >
+              {link.name}
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${scrolled ? 'bg-primary' : 'bg-white'}`} />
             </Link>
           ))}
         </div>
@@ -90,7 +91,7 @@ export function Navbar() {
            <Link href="/shop">
             <Button 
               size="sm" 
-              className={`rounded-full px-6 font-medium transition-all ${
+              className={`rounded-full px-4 lg:px-6 py-2 font-medium transition-all text-sm ${
                 scrolled 
                   ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
                   : 'bg-white text-primary hover:bg-white/90'

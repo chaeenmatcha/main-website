@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Mail, Instagram } from "lucide-react";
 
 export function Footer() {
   return (
@@ -26,14 +27,22 @@ export function Footer() {
               <li><Link href="/about" className="hover:text-primary transition-colors">Our Story</Link></li>
             </ul>
           </div>
+
+          <div>
+            <h4 className="font-serif font-semibold mb-6">Contact</h4>
+            <ul className="space-y-4 text-sm text-muted-foreground">
+              <li><a href="mailto:matchachaeen@gmail.com" className="hover:text-primary transition-colors"><Mail className="w-5 h-5" /></a></li>
+              <li><a href="https://www.instagram.com/chaeen_matcha" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><Instagram className="w-5 h-5" /></a></li>
+            </ul>
+          </div>
         </div>
         
         <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} CHAEEN MATCHA. All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="/admin" className="hover:text-primary transition-colors">Admin Login</Link>
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
+            <Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

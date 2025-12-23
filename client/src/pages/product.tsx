@@ -1,17 +1,32 @@
 import { Layout } from "@/components/layout/layout";
-import { products } from "@/lib/data";
 import { useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Check, Star } from "lucide-react";
+import { Check, Star, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { getProduct } from "@/lib/api";
 import NotFound from "./not-found";
 
 export default function ProductDetail() {
   const [, params] = useRoute("/product/:id");
   
-  const product = products.find(p => p.id === params?.id);
+  const { data: product, isLoading, error } = useQuery({
+    queryKey: ["product", params?.id],
+    queryFn: () => getProduct(params?.id || ""),
+    enabled: !!params?.id,
+  });
   
-  if (!product) return <NotFound />;
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="pt-32 pb-16 flex items-center justify-center min-h-[60vh]">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
+      </Layout>
+    );
+  }
+  
+  if (error || !product) return <NotFound />;
 
   const whatsappUrl = `https://wa.me/919310781313?text=${encodeURIComponent(`Hi, I am interested in buying ${product.name} (${product.weight})`)}`;
 
@@ -19,11 +34,10 @@ export default function ProductDetail() {
     <Layout>
       <div className="pt-32 pb-16 container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start max-w-6xl mx-auto">
-          {/* Image Gallery */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-secondary/10 rounded-lg overflow-hidden aspect-[4/5] sticky top-32"
+            className="bg-secondary/10 rounded-lg overflow-hidden aspect-[4/5] md:sticky md:top-32"
           >
             <img 
               src={product.image} 
@@ -32,7 +46,6 @@ export default function ProductDetail() {
             />
           </motion.div>
 
-          {/* Product Info */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -42,14 +55,12 @@ export default function ProductDetail() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <span className="bg-primary/10 text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full">
-                  Ceremonial Grade A
+                  {product.category === 'ceremonial' ? 'Ceremonial Grade A' : product.category}
                 </span>
                 <div className="flex items-center gap-1 text-yellow-500 text-sm">
-                  <Star className="fill-current w-4 h-4" />
-                  <Star className="fill-current w-4 h-4" />
-                  <Star className="fill-current w-4 h-4" />
-                  <Star className="fill-current w-4 h-4" />
-                  <Star className="fill-current w-4 h-4" />
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="fill-current w-4 h-4" />
+                  ))}
                   <span className="text-muted-foreground ml-1">(42 reviews)</span>
                 </div>
               </div>
@@ -60,15 +71,15 @@ export default function ProductDetail() {
               
               <div className="flex items-baseline gap-4 mt-4 mb-6">
                 <span className="text-3xl font-medium">₹{product.price}</span>
-                {product.originalPrice > product.price && (
-                  <span className="text-xl text-muted-foreground line-through">
-                    ₹{product.originalPrice}
-                  </span>
-                )}
-                {product.originalPrice > product.price && (
-                  <span className="text-destructive font-medium text-sm">
-                    Save ₹{product.originalPrice - product.price}
-                  </span>
+                {product.original_price > product.price && (
+                  <>
+                    <span className="text-xl text-muted-foreground line-through">
+                      ₹{product.original_price}
+                    </span>
+                    <span className="text-destructive font-medium text-sm">
+                      Save ₹{product.original_price - product.price}
+                    </span>
+                  </>
                 )}
               </div>
             </div>
@@ -103,7 +114,7 @@ export default function ProductDetail() {
             </div>
             
             <p className="text-sm text-center text-primary font-medium bg-primary/5 p-3 rounded-md border border-primary/10">
-              🎁 Offer: Buy 2 or more products to get an extra 10% OFF!
+              🎁 Offer: 10% off on purchase of 2
             </p>
           </motion.div>
         </div>
